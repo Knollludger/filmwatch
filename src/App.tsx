@@ -1,7 +1,8 @@
 import React from "react";
-import { Stage, Layer, Circle, Line } from "react-konva";
+import { Dropdown, Button, ButtonGroup } from "react-bootstrap";
+import { Left } from "react-bootstrap/lib/Media";
+import { Stage, Layer, Circle, Line, Rect } from "react-konva";
 import "./App.css";
-
 interface Point {
   id: string;
   x: number;
@@ -111,59 +112,85 @@ const App = () => {
 
   let width: number = 1500 * 1.1 * 0.8;
   let height: number = 1500 * 0.4 * 0.8;
+
   return (
     <div className="App">
       <header className="App-header">
-        <Stage
-          width={width}
-          height={height}
-          style={{ border: "2px solid gray" }}
-          onClick={StagehandleClick}
-        >
-          <Layer>
-            <Line
-              points={[(width * 20) / 110, 0, (width * 20) / 110, height]}
-              stroke="gray"
-              strokeWidth={2}
-            />
-            <Line
-              points={[(width * 90) / 110, 0, (width * 90) / 110, height]}
-              stroke="gray"
-              strokeWidth={2}
-            ></Line>
-          </Layer>
-          <Layer>
-            <Line
-              points={Lines}
-              stroke="white"
-              strokeWidth={2}
-              dash={[10, 5]}
-            />
-            {stars.map((star) => (
-              <Circle
-                key={star.id}
-                id={star.id}
-                x={star.x}
-                y={star.y}
-                radius={20}
-                fill={star.thrower ? "gold" : star.completion ? "green" : "red"}
-                opacity={0.8}
-                draggable
-                shadowColor="black"
-                shadowBlur={10}
-                shadowOpacity={0.6}
-                shadowOffsetX={star.isDragging ? 10 : 5}
-                shadowOffsetY={star.isDragging ? 10 : 5}
-                scaleX={star.isDragging ? 1.2 : 1}
-                scaleY={star.isDragging ? 1.2 : 1}
-                onDragStart={handleDragStart}
-                onDragEnd={handleDragEnd}
-                onClick={pointHandleClick}
-                onDragMove={ondrag}
+        <h1>Ultimate Film Tracker</h1>
+        <div className="App-Body">
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <span>Shame.</span>
+            <span>AMP</span>
+          </div>
+          <Stage
+            width={width}
+            height={height}
+            style={{ border: "2px solid gray" }}
+            onClick={StagehandleClick}
+          >
+            <Layer>
+              <Line
+                points={[(width * 20) / 110, 0, (width * 20) / 110, height]}
+                stroke="gray"
+                strokeWidth={2}
               />
-            ))}
-          </Layer>
-        </Stage>
+              <Line
+                points={[(width * 90) / 110, 0, (width * 90) / 110, height]}
+                stroke="gray"
+                strokeWidth={2}
+              ></Line>
+            </Layer>
+            <Layer>
+              <Rect
+                x={0}
+                y={0}
+                height={height}
+                width={(width * 20) / 110}
+                fill="red"
+                opacity={0.25}
+              />
+              <Rect
+                x={(width * 90) / 110}
+                y={0}
+                height={height}
+                width={(width * 20) / 110}
+                fill="blue"
+                opacity={0.25}
+              />
+              <Line
+                points={Lines}
+                stroke="white"
+                strokeWidth={2}
+                dash={[10, 5]}
+              />
+              {stars.map((star) => (
+                <Circle
+                  key={star.id}
+                  id={star.id}
+                  x={star.x}
+                  y={star.y}
+                  radius={20}
+                  fill={
+                    star.thrower ? "gold" : star.completion ? "green" : "red"
+                  }
+                  opacity={0.8}
+                  draggable
+                  shadowColor="black"
+                  shadowBlur={10}
+                  shadowOpacity={0.6}
+                  shadowOffsetX={star.isDragging ? 10 : 5}
+                  shadowOffsetY={star.isDragging ? 10 : 5}
+                  scaleX={star.isDragging ? 1.2 : 1}
+                  scaleY={star.isDragging ? 1.2 : 1}
+                  onDragStart={handleDragStart}
+                  onDragEnd={handleDragEnd}
+                  onClick={pointHandleClick}
+                  onDragMove={ondrag}
+                />
+              ))}
+            </Layer>
+          </Stage>
+        </div>
       </header>
     </div>
   );
