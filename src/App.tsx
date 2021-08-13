@@ -2,17 +2,15 @@ import React from "react";
 import { Stage, Layer, Circle, Line } from "react-konva";
 import "./App.css";
 
+interface Point {
+  id: string;
+  x: number;
+  y: number;
+  isDragging: boolean;
+}
+
 const App = () => {
-  function generateShapes() {
-    return [...Array(10)].map((_, i) => ({
-      id: i.toString(),
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      isDragging: false,
-    }));
-  }
-  const INITIAL_STATE = generateShapes();
-  const [stars, setStars] = React.useState(INITIAL_STATE);
+  const [stars, setStars] = React.useState<Array<Point>>([]);
 
   const handleDragStart = (e: any) => {
     const id = e.target.id();
@@ -35,7 +33,7 @@ const App = () => {
       })
     );
   };
-  const handleClick = (e: any) => {
+  const handleClick = (e) => {
     let stage = e.target;
     const emptySpace = stage.getPointerPosition();
     console.log(emptySpace);
