@@ -1,6 +1,4 @@
 import React from "react";
-import { Dropdown, Button, ButtonGroup } from "react-bootstrap";
-import { Left } from "react-bootstrap/lib/Media";
 import { Stage, Layer, Circle, Line, Rect } from "react-konva";
 import "./App.css";
 interface Point {
@@ -116,7 +114,7 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Ultimate Film Tracker</h1>
+        <h1>Ultimate Film Watch</h1>
         <div className="App-Body">
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <span>Shame.</span>
