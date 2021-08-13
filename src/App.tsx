@@ -34,9 +34,8 @@ const App = () => {
     );
   };
   const handleClick = (e) => {
-    let stage = e.target;
+    let stage = e.target.getStage();
     const emptySpace = stage.getPointerPosition();
-    console.log(emptySpace);
     setStars(
       stars.concat({
         id: stars.length.toString(),
@@ -78,7 +77,7 @@ const App = () => {
                 x={star.x}
                 y={star.y}
                 radius={20}
-                fill="#89b717"
+                fill="white"
                 opacity={0.8}
                 draggable
                 shadowColor="black"
