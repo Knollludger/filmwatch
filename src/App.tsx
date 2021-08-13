@@ -7,13 +7,60 @@ interface Point {
   x: number;
   y: number;
   isDragging: boolean;
+  thrower: boolean;
+  completion: boolean;
 }
 
 const App = () => {
   const [stars, setStars] = React.useState<Array<Point>>([]);
+  const [Lines, setLines] = React.useState<Array<number>>([]);
+
+  const ondrag = (e: any) => {
+    const target = e.target;
+    const id = e.target.id();
+
+    setStars(
+      stars.map((star) => {
+        if (star.id === id) {
+          return {
+            ...star,
+            x: target.attrs.x,
+            y: target.attrs.y,
+          };
+        } else {
+          return star;
+        }
+      })
+    );
+    if (stars.length === 2) {
+      setLines([stars[0].x, stars[0].y, stars[1].x, stars[1].y]);
+    }
+  };
+
+  const pointHandleClick = (e: any) => {
+    const id = e.target.id();
+    if (stars.length === 2) {
+      setLines([stars[0].x, stars[0].y, stars[1].x, stars[1].y]);
+    }
+    setStars(
+      stars.map((star) => {
+        if (star.id === id) {
+          return {
+            ...star,
+            completion: !star.completion,
+          };
+        } else {
+          return star;
+        }
+      })
+    );
+  };
 
   const handleDragStart = (e: any) => {
     const id = e.target.id();
+    if (stars.length === 2) {
+      setLines([stars[0].x, stars[0].y, stars[1].x, stars[1].y]);
+    }
     setStars(
       stars.map((star) => {
         return {
@@ -24,6 +71,9 @@ const App = () => {
     );
   };
   const handleDragEnd = (e: any) => {
+    if (stars.length === 2) {
+      setLines([stars[0].x, stars[0].y, stars[1].x, stars[1].y]);
+    }
     setStars(
       stars.map((star) => {
         return {
@@ -33,17 +83,30 @@ const App = () => {
       })
     );
   };
-  const handleClick = (e) => {
+  const StagehandleClick = (e) => {
     let stage = e.target.getStage();
     const emptySpace = stage.getPointerPosition();
-    setStars(
-      stars.concat({
+    if (stars.length < 2) {
+      let tempstars = stars.concat({
         id: stars.length.toString(),
         x: emptySpace.x,
         y: emptySpace.y,
         isDragging: false,
-      })
-    );
+        thrower: stars.length === 0,
+        completion: stars.length === 1,
+      });
+      if (tempstars.length === 2) {
+        setLines([
+          tempstars[0].x,
+          tempstars[0].y,
+          tempstars[1].x,
+          tempstars[1].y,
+        ]);
+      }
+      setStars(tempstars);
+    } else {
+      setLines([stars[0].x, stars[0].y, stars[1].x, stars[1].y]);
+    }
   };
 
   let width: number = 1500 * 1.1 * 0.8;
@@ -55,7 +118,7 @@ const App = () => {
           width={width}
           height={height}
           style={{ border: "2px solid gray" }}
-          onClick={handleClick}
+          onClick={StagehandleClick}
         >
           <Layer>
             <Line
@@ -70,6 +133,12 @@ const App = () => {
             ></Line>
           </Layer>
           <Layer>
+            <Line
+              points={Lines}
+              stroke="white"
+              strokeWidth={2}
+              dash={[10, 5]}
+            />
             {stars.map((star) => (
               <Circle
                 key={star.id}
@@ -77,7 +146,7 @@ const App = () => {
                 x={star.x}
                 y={star.y}
                 radius={20}
-                fill="white"
+                fill={star.thrower ? "gold" : star.completion ? "green" : "red"}
                 opacity={0.8}
                 draggable
                 shadowColor="black"
@@ -89,6 +158,8 @@ const App = () => {
                 scaleY={star.isDragging ? 1.2 : 1}
                 onDragStart={handleDragStart}
                 onDragEnd={handleDragEnd}
+                onClick={pointHandleClick}
+                onDragMove={ondrag}
               />
             ))}
           </Layer>
