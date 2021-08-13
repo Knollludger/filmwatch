@@ -37,26 +37,29 @@ const App = () => {
     );
   };
 
+  let width: number = 1500 * 1.1 * 0.8;
+  let height: number = 1500 * 0.4 * 0.8;
   return (
     <div className="App">
       <header className="App-header">
         <Stage
-          width={window.innerWidth * 0.8}
-          height={window.innerHeight * 0.5}
-          style={{ borderStyle: "solid" }}
+          width={width}
+          height={height}
+          style={{ border: "2px solid gray" }}
         >
           <Layer>
-            <Line></Line>
-            <Rect
-              width={100}
-              height={100}
-              fill={"red"}
-              stroke={"black"}
-              strokeWidth={5}
+            <Line
+              points={[(width * 20) / 110, 0, (width * 20) / 110, height]}
+              stroke="gray"
+              strokeWidth={2}
             />
+            <Line
+              points={[(width * 90) / 110, 0, (width * 90) / 110, height]}
+              stroke="gray"
+              strokeWidth={2}
+            ></Line>
           </Layer>
           <Layer>
-            <Text text="Try to drag a star" />
             {stars.map((star) => (
               <Star
                 key={star.id}
