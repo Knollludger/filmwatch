@@ -1,5 +1,5 @@
 import React from "react";
-import { Stage, Layer, Star, Text, Rect, Line } from "react-konva";
+import { Stage, Layer, Circle, Line } from "react-konva";
 import "./App.css";
 
 const App = () => {
@@ -8,7 +8,6 @@ const App = () => {
       id: i.toString(),
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
-      rotation: Math.random() * 180,
       isDragging: false,
     }));
   }
@@ -36,6 +35,19 @@ const App = () => {
       })
     );
   };
+  const handleClick = (e: any) => {
+    let stage = e.target;
+    const emptySpace = stage.getPointerPosition();
+    console.log(emptySpace);
+    setStars(
+      stars.concat({
+        id: stars.length.toString(),
+        x: emptySpace.x,
+        y: emptySpace.y,
+        isDragging: false,
+      })
+    );
+  };
 
   let width: number = 1500 * 1.1 * 0.8;
   let height: number = 1500 * 0.4 * 0.8;
@@ -46,6 +58,7 @@ const App = () => {
           width={width}
           height={height}
           style={{ border: "2px solid gray" }}
+          onClick={handleClick}
         >
           <Layer>
             <Line
@@ -61,18 +74,15 @@ const App = () => {
           </Layer>
           <Layer>
             {stars.map((star) => (
-              <Star
+              <Circle
                 key={star.id}
                 id={star.id}
                 x={star.x}
                 y={star.y}
-                numPoints={5}
-                innerRadius={20}
-                outerRadius={40}
+                radius={20}
                 fill="#89b717"
                 opacity={0.8}
                 draggable
-                rotation={star.rotation}
                 shadowColor="black"
                 shadowBlur={10}
                 shadowOpacity={0.6}
