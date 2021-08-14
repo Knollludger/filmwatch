@@ -5,6 +5,7 @@ import * as ULT from "./Interfaces";
 
 const App = () => {
   const [throws, setThrows] = React.useState<Array<ULT.Throw>>([]);
+  const [throwID, setThrowID] = React.useState<number>(0);
 
   let propogatethrows = (Throw: ULT.Throw) => {
     if (
@@ -31,7 +32,7 @@ const App = () => {
       <header className="App-header">
         <h1>Ultimate Film Watch</h1>
         <div className="App-Body">
-          <Field parentAddThrow={propogatethrows} throwID={1} />
+          <Field parentAddThrow={propogatethrows} throwID={throwID} />
           <h1>{JSON.stringify(throws)}</h1>
         </div>
       </header>

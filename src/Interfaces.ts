@@ -46,6 +46,15 @@ enum ThrowAngle {
   IO,
   NA,
 }
+
+enum ThrowResult {
+  Score,
+  completion,
+  Drop,
+  Uncatchable,
+  D,
+  Foul,
+}
 export class Throw {
   id: number = -1;
   thrower: XYPoint = new XYPoint(0, 0);
