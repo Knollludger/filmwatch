@@ -31,7 +31,8 @@ const App = () => {
       <header className="App-header">
         <h1>Ultimate Film Watch</h1>
         <div className="App-Body">
-          <Field parentAddThrow={propogatethrows} />
+          <Field parentAddThrow={propogatethrows} throwID={1} />
+          <h1>{JSON.stringify(throws)}</h1>
         </div>
       </header>
     </div>

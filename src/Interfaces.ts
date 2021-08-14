@@ -12,7 +12,7 @@ export interface Point {
   completion: boolean;
 }
 
-export class Point {
+export class XYPoint {
   x: number = -1;
   y: number = -1;
   constructor(x: number, y: number) {
@@ -21,7 +21,7 @@ export class Point {
   }
 }
 
-export class Target extends Point {
+export class Target extends XYPoint {
   completion: boolean = true;
   // for if I ever track more than scores and Ds.
   score: boolean = true;
@@ -48,12 +48,12 @@ enum ThrowAngle {
 }
 export class Throw {
   id: number = -1;
-  thrower: Point = new Point(0, 0);
+  thrower: XYPoint = new XYPoint(0, 0);
   target: Target = new Target(0, 0, false);
   type: ThrowType = ThrowType.Backhand;
   angle: ThrowAngle = ThrowAngle.Flat;
 
-  constructor(id: number, handler: Point, target: Target) {
+  constructor(id: number, handler: XYPoint, target: Target) {
     this.id = id;
     this.thrower = handler;
     this.target = target;

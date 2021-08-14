@@ -5,11 +5,30 @@ import * as ULT from "../Interfaces";
 
 interface FieldProps {
   parentAddThrow: (_: ULT.Throw) => void;
+  throwID: number;
 }
 
 const Field = (Props: FieldProps) => {
   const [stars, setStars] = React.useState<Array<ULT.Point>>([]);
   const [Lines, setLines] = React.useState<Array<number>>([]);
+
+  let makeThrow = (stars: Array<ULT.Point>) => {
+    let point_target = stars.filter((point) => {
+      return !point.thrower;
+    })[0];
+    let point_handler = stars.filter((point) => {
+      return point.thrower;
+    })[0];
+
+    let handler = new ULT.XYPoint(point_handler.x, point_handler.y);
+
+    let target = new ULT.Target(
+      point_target.x,
+      point_target.y,
+      point_target.completion
+    );
+    Props.parentAddThrow(new ULT.Throw(Props.throwID, handler, target));
+  };
 
   const ondrag = (e: any) => {
     const target = e.target;
@@ -30,32 +49,35 @@ const Field = (Props: FieldProps) => {
     );
     if (stars.length === 2) {
       setLines([stars[0].x, stars[0].y, stars[1].x, stars[1].y]);
+      makeThrow(stars);
     }
   };
 
   const pointHandleClick = (e: any) => {
     const id = e.target.id();
+    let tempStars = stars.map((star) => {
+      if (star.id === id) {
+        return {
+          ...star,
+          completion: !star.completion,
+        };
+      } else {
+        return star;
+      }
+    });
+
     if (stars.length === 2) {
       setLines([stars[0].x, stars[0].y, stars[1].x, stars[1].y]);
+      makeThrow(tempStars);
     }
-    setStars(
-      stars.map((star) => {
-        if (star.id === id) {
-          return {
-            ...star,
-            completion: !star.completion,
-          };
-        } else {
-          return star;
-        }
-      })
-    );
+    setStars(tempStars);
   };
 
   const handleDragStart = (e: any) => {
     const id = e.target.id();
     if (stars.length === 2) {
       setLines([stars[0].x, stars[0].y, stars[1].x, stars[1].y]);
+      makeThrow(stars);
     }
     setStars(
       stars.map((star) => {
@@ -69,6 +91,7 @@ const Field = (Props: FieldProps) => {
   const handleDragEnd = (e: any) => {
     if (stars.length === 2) {
       setLines([stars[0].x, stars[0].y, stars[1].x, stars[1].y]);
+      makeThrow(stars);
     }
     setStars(
       stars.map((star) => {
@@ -98,6 +121,7 @@ const Field = (Props: FieldProps) => {
           tempstars[1].x,
           tempstars[1].y,
         ]);
+        makeThrow(tempstars);
       }
       setStars(tempstars);
     } else {
