@@ -1,22 +1,37 @@
 import React from "react";
 import Field from "./Components/field";
 import "./App.css";
-interface Point {
-  id: string;
-  x: number;
-  y: number;
-  isDragging: boolean;
-  thrower: boolean;
-  completion: boolean;
-}
+import * as ULT from "./Interfaces";
 
 const App = () => {
+  const [throws, setThrows] = React.useState<Array<ULT.Throw>>([]);
+
+  let propogatethrows = (Throw: ULT.Throw) => {
+    if (
+      throws.filter((x) => {
+        return x.id === Throw.id;
+      }).length === 0
+    ) {
+      setThrows(throws.concat(Throw));
+    } else {
+      setThrows(
+        throws.map((x) => {
+          if (x.id === Throw.id) {
+            return Throw;
+          } else {
+            return x;
+          }
+        })
+      );
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>Ultimate Film Watch</h1>
         <div className="App-Body">
-          <Field />
+          <Field parentAddThrow={propogatethrows} />
         </div>
       </header>
     </div>

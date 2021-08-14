@@ -3,6 +3,15 @@ export class UltimatePoint {
   Score = [];
 }
 
+export interface Point {
+  id: string;
+  x: number;
+  y: number;
+  isDragging: boolean;
+  thrower: boolean;
+  completion: boolean;
+}
+
 export class Point {
   x: number = -1;
   y: number = -1;
@@ -38,12 +47,14 @@ enum ThrowAngle {
   NA,
 }
 export class Throw {
+  id: number = -1;
   thrower: Point = new Point(0, 0);
   target: Target = new Target(0, 0, false);
   type: ThrowType = ThrowType.Backhand;
   angle: ThrowAngle = ThrowAngle.Flat;
 
-  constructor(handler: Point, target: Target) {
+  constructor(id: number, handler: Point, target: Target) {
+    this.id = id;
     this.thrower = handler;
     this.target = target;
   }

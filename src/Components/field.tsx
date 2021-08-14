@@ -1,22 +1,14 @@
 import React from "react";
 import { Stage, Layer, Circle, Line, Rect } from "react-konva";
 import "../App.css";
-
-interface Point {
-  id: string;
-  x: number;
-  y: number;
-  isDragging: boolean;
-  thrower: boolean;
-  completion: boolean;
-}
+import * as ULT from "../Interfaces";
 
 interface FieldProps {
-  parentSetLines: () => void;
+  parentAddThrow: (_: ULT.Throw) => void;
 }
 
-const Field = () => {
-  const [stars, setStars] = React.useState<Array<Point>>([]);
+const Field = (Props: FieldProps) => {
+  const [stars, setStars] = React.useState<Array<ULT.Point>>([]);
   const [Lines, setLines] = React.useState<Array<number>>([]);
 
   const ondrag = (e: any) => {
