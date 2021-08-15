@@ -1,4 +1,3 @@
-import React from "react";
 import { Stage, Layer, Circle, Line, Rect } from "react-konva";
 import "../App.css";
 import * as ULT from "../Interfaces";

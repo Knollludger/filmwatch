@@ -1,5 +1,5 @@
 import React from "react";
-import Field from "./Components/field";
+import Field from "./Components/Field";
 import "./App.css";
 import * as ULT from "./Interfaces";
 import { Button } from "react-bootstrap";
