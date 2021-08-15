@@ -70,7 +70,7 @@ const App = () => {
           />
           <Button onClick={makeThrow} />
           {throws.map((ULTthrow: ULT.Throw) => (
-            <Throw throws={ULTthrow} score="1 - 2" />
+            <Throw throws={ULTthrow} score="AMP 1 - 2 Shame." />
           ))}
         </div>
       </header>

@@ -8,9 +8,14 @@ interface ThrowProps {
 
 const Throw = (props: ThrowProps) => {
   let throws = props.throws;
-  let score = "1 - 2"; //score will be backfilled from the result of all throws.
+  let score = props.score; //score will be backfilled from the result of all throws.
 
-  return <div>Score = {score}</div>;
+  return (
+    <div className="throw-body">
+      <span>{"Result : Turnover | "}</span>
+      <span>{score}</span>
+    </div>
+  );
 };
 
 export default Throw;
