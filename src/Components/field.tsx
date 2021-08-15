@@ -4,53 +4,33 @@ import "../App.css";
 import * as ULT from "../Interfaces";
 
 interface FieldProps {
-  parentAddThrow: (_: ULT.Throw) => void;
+  parentAddStars: (stars: Array<ULT.Point>) => void;
   throwID: number;
+  stars: Array<ULT.Point>;
 }
 
 const Field = (Props: FieldProps) => {
-  const [stars, setStars] = React.useState<Array<ULT.Point>>([]);
-  const [Lines, setLines] = React.useState<Array<number>>([]);
-
-  let makeThrow = (stars: Array<ULT.Point>) => {
-    let point_target = stars.filter((point) => {
-      return !point.thrower;
-    })[0];
-    let point_handler = stars.filter((point) => {
-      return point.thrower;
-    })[0];
-
-    let handler = new ULT.XYPoint(point_handler.x, point_handler.y);
-
-    let target = new ULT.Target(
-      point_target.x,
-      point_target.y,
-      point_target.completion
-    );
-    Props.parentAddThrow(new ULT.Throw(Props.throwID, handler, target));
-  };
+  let stars = Props.stars;
+  let lines = stars.flatMap((star) => {
+    return [star.x, star.y];
+  });
 
   const ondrag = (e: any) => {
     const target = e.target;
     const id = e.target.id();
 
-    setStars(
-      stars.map((star) => {
-        if (star.id === id) {
-          return {
-            ...star,
-            x: target.attrs.x,
-            y: target.attrs.y,
-          };
-        } else {
-          return star;
-        }
-      })
-    );
-    if (stars.length === 2) {
-      setLines([stars[0].x, stars[0].y, stars[1].x, stars[1].y]);
-      makeThrow(stars);
-    }
+    stars = stars.map((star) => {
+      if (parseInt(star.id) === parseInt(id)) {
+        return {
+          ...star,
+          x: target.attrs.x,
+          y: target.attrs.y,
+        };
+      } else {
+        return star;
+      }
+    });
+    Props.parentAddStars(stars);
   };
 
   const pointHandleClick = (e: any) => {
@@ -66,41 +46,27 @@ const Field = (Props: FieldProps) => {
       }
     });
 
-    if (stars.length === 2) {
-      setLines([stars[0].x, stars[0].y, stars[1].x, stars[1].y]);
-      makeThrow(tempStars);
-    }
-    setStars(tempStars);
+    Props.parentAddStars(tempStars);
   };
 
   const handleDragStart = (e: any) => {
     const id = e.target.id();
-    if (stars.length === 2) {
-      setLines([stars[0].x, stars[0].y, stars[1].x, stars[1].y]);
-      makeThrow(stars);
-    }
-    setStars(
-      stars.map((star) => {
-        return {
-          ...star,
-          isDragging: star.id === id,
-        };
-      })
-    );
+    stars = stars.map((star) => {
+      return {
+        ...star,
+        isDragging: star.id === id,
+      };
+    });
+    Props.parentAddStars(stars);
   };
   const handleDragEnd = (e: any) => {
-    if (stars.length === 2) {
-      setLines([stars[0].x, stars[0].y, stars[1].x, stars[1].y]);
-      makeThrow(stars);
-    }
-    setStars(
-      stars.map((star) => {
-        return {
-          ...star,
-          isDragging: false,
-        };
-      })
-    );
+    stars.map((star) => {
+      return {
+        ...star,
+        isDragging: false,
+      };
+    });
+    Props.parentAddStars(stars);
   };
   const StagehandleClick = (e) => {
     let stage = e.target.getStage();
@@ -114,19 +80,10 @@ const Field = (Props: FieldProps) => {
         thrower: stars.length === 0,
         completion: stars.length === 1,
       });
-      if (tempstars.length === 2) {
-        setLines([
-          tempstars[0].x,
-          tempstars[0].y,
-          tempstars[1].x,
-          tempstars[1].y,
-        ]);
-        makeThrow(tempstars);
-      }
-      setStars(tempstars);
-    } else {
-      setLines([stars[0].x, stars[0].y, stars[1].x, stars[1].y]);
+      stars = tempstars;
+      // setStars(tempstars);
     }
+    Props.parentAddStars(stars);
   };
 
   let width: number = 1500 * 1.1 * 0.8;
@@ -173,7 +130,7 @@ const Field = (Props: FieldProps) => {
             fill="blue"
             opacity={0.25}
           />
-          <Line points={Lines} stroke="white" strokeWidth={2} dash={[10, 5]} />
+          <Line points={lines} stroke="white" strokeWidth={2} dash={[10, 5]} />
           {stars.map((star) => (
             <Circle
               key={star.id}
