@@ -18,8 +18,8 @@ const Throw = (props: ThrowProps) => {
       className="throw-body"
       style={{ borderLeft: "10px solid " + borderColor }}
     >
-      <span>{"Result : Turnover | "}</span>
-      <span>{score}</span>
+      <em>{score}</em>
+      <span>{"Result : Turnover"}</span>
     </div>
   );
 };

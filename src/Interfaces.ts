@@ -67,5 +67,7 @@ export class Throw {
     this.id = id;
     this.thrower = handler;
     this.target = target;
+    this.throwResult =
+      target.score === true ? ThrowResult.Score : ThrowResult.D;
   }
 }
