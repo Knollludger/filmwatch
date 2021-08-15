@@ -1,4 +1,5 @@
 .throw-body {
   justify-content: space-around;
-  font-size: small;
+  font-size: 1em;
+  border: 0.5px solid gray;
 }

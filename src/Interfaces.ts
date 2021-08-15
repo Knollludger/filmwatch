@@ -32,7 +32,7 @@ export class Target extends XYPoint {
   }
 }
 
-enum ThrowType {
+export enum ThrowType {
   Backhand,
   Forehand,
   Hammer,
@@ -40,14 +40,14 @@ enum ThrowType {
   PushPass,
 }
 
-enum ThrowAngle {
+export enum ThrowAngle {
   Flat,
   OI,
   IO,
   NA,
 }
 
-enum ThrowResult {
+export enum ThrowResult {
   Score,
   completion,
   Drop,
