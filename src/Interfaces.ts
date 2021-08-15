@@ -61,6 +61,7 @@ export class Throw {
   target: Target = new Target(0, 0, false);
   type: ThrowType = ThrowType.Backhand;
   angle: ThrowAngle = ThrowAngle.Flat;
+  throwResult: ThrowResult = ThrowResult.Score;
 
   constructor(id: number, handler: XYPoint, target: Target) {
     this.id = id;
