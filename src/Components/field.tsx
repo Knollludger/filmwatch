@@ -59,7 +59,7 @@ const Field = (Props: FieldProps) => {
     Props.parentAddStars(stars);
   };
   const handleDragEnd = (e: any) => {
-    stars.map((star) => {
+    stars = stars.map((star) => {
       return {
         ...star,
         isDragging: false,
