@@ -19,7 +19,6 @@ const Throw = (props: ThrowProps) => {
       style={{ borderLeft: "10px solid " + borderColor }}
     >
       <>{score}</>
-      <span>{"Result : Turnover"}</span>
     </div>
   );
 };

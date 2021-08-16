@@ -2,6 +2,7 @@ import React from "react";
 import * as ULT from "../../Interfaces";
 import Throw from "./Throw";
 import "./Throw.css";
+import throwTextGen from "./TextGen";
 
 interface ThrowsMenuProps {
   throws: Array<ULT.Throw>;
@@ -26,7 +27,7 @@ const ThrowsMenu = (props: ThrowsMenuProps) => {
     <div className="throws-menu">
       <h2 style={style}>Throw Tracker</h2>
       {throws.map((ULTthrow: ULT.Throw) => (
-        <Throw throws={ULTthrow} score="AMP 1 - 2 Shame." />
+        <Throw throws={ULTthrow} score={throwTextGen(ULTthrow)} />
       ))}
     </div>
   );
