@@ -2,6 +2,14 @@
   justify-content: space-around;
   font-size: 1em;
   border-bottom: 0.5px solid gray;
+  transition: background-color 0.2s;
+}
+
+.throw-body:hover {
+  justify-content: space-around;
+  font-size: 1em;
+  border-bottom: 0.5px solid gray;
+  background-color: black;
 }
 
 .throws-menu {
