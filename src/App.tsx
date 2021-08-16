@@ -3,7 +3,7 @@ import Field from "./Components/Field";
 import "./App.css";
 import * as ULT from "./Interfaces";
 import { Button } from "react-bootstrap";
-import Throw from "./Components/ThrowLayout/Throw";
+import ThrowsMenu from "./Components/ThrowLayout/ThrowsMenu";
 
 const App = () => {
   const [throws, setThrows] = React.useState<Array<ULT.Throw>>([]);
@@ -69,9 +69,7 @@ const App = () => {
             stars={stars}
           />
           <Button onClick={makeThrow} />
-          {throws.map((ULTthrow: ULT.Throw) => (
-            <Throw throws={ULTthrow} score="AMP 1 - 2 Shame." />
-          ))}
+          <ThrowsMenu throws={throws} />
         </div>
       </header>
     </div>

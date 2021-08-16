@@ -1,5 +1,15 @@
 .throw-body {
   justify-content: space-around;
   font-size: 1em;
-  border: 0.5px solid gray;
+  border-bottom: 0.5px solid gray;
+}
+
+.throws-menu {
+  border: 1px solid gray;
+  border-radius: 0.5em;
+  overflow: hidden;
+}
+
+.throws-menu :last-child {
+  border-bottom: none;
 }
