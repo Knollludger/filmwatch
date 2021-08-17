@@ -10,6 +10,7 @@ interface ThrowsMenuProps {
 
 const ThrowsMenu = (props: ThrowsMenuProps) => {
   let throws = props.throws;
+  const [collapsed, setcollapsed] = React.useState<boolean>(true);
 
   let style = {
     width: "100%",
