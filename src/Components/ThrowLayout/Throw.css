@@ -22,3 +22,7 @@
 .throws-menu :last-child {
   border-bottom: none;
 }
+
+.throws-icon {
+  margin-bottom: 5px;
+}

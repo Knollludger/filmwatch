@@ -3,7 +3,8 @@ import * as ULT from "../../Interfaces";
 import Throw from "./Throw";
 import "./Throw.css";
 import throwTextGen from "./TextGen";
-import { Button, Collapse } from "react-bootstrap";
+import { Collapse } from "react-bootstrap";
+import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 
 interface ThrowsMenuProps {
   throws: Array<ULT.Throw>;
@@ -14,8 +15,6 @@ const ThrowsMenu = (props: ThrowsMenuProps) => {
   const [open, setOpen] = React.useState<boolean>(true);
 
   let style = {
-    width: "100%",
-    marginBottom: "0px",
     paddingLeft: "5px",
     paddingBottom: "2px",
     fontSize: "1.5rem",
@@ -23,14 +22,26 @@ const ThrowsMenu = (props: ThrowsMenuProps) => {
 
   return (
     <div className="throws-menu" style={{ display: "inline-block" }}>
-      <span style={style}>Throw Tracker</span>
-      <Button
-        onClick={() => setOpen(!open)}
-        aria-controls="example-collapse-text"
-        aria-expanded={open}
-      >
-        Open
-      </Button>
+      <div>
+        <span style={style}>Throw Tracker</span>
+        {open ? (
+          <FaCaretDown
+            onClick={() => setOpen(!open)}
+            aria-controls="example-collapse-text"
+            aria-expanded={open}
+            size={28}
+            className="throws-icon"
+          />
+        ) : (
+          <FaCaretUp
+            onClick={() => setOpen(!open)}
+            aria-controls="example-collapse-text"
+            aria-expanded={open}
+            size={28}
+            className="throws-icon"
+          />
+        )}
+      </div>
       <Collapse in={open}>
         <div style={{ borderTop: "2px solid gray" }}>
           {throws.map((ULTthrow: ULT.Throw) => (
