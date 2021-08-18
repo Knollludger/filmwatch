@@ -3,6 +3,7 @@ import * as ULT from "../../Interfaces";
 import Throw from "./Throw";
 import "./Throw.css";
 import throwTextGen from "./TextGen";
+import { Button, Collapse } from "react-bootstrap";
 
 interface ThrowsMenuProps {
   throws: Array<ULT.Throw>;
@@ -10,26 +11,33 @@ interface ThrowsMenuProps {
 
 const ThrowsMenu = (props: ThrowsMenuProps) => {
   let throws = props.throws;
-  const [collapsed, setcollapsed] = React.useState<boolean>(true);
+  const [open, setOpen] = React.useState<boolean>(true);
 
   let style = {
     width: "100%",
     marginBottom: "0px",
     paddingLeft: "5px",
     paddingBottom: "2px",
-    borderBottom: "none",
+    fontSize: "1.5rem",
   };
 
-  if (throws.length !== 0) {
-    style.borderBottom = "2px solid gray";
-  }
-
   return (
-    <div className="throws-menu">
-      <h2 style={style}>Throw Tracker</h2>
-      {throws.map((ULTthrow: ULT.Throw) => (
-        <Throw throws={ULTthrow} score={throwTextGen(ULTthrow)} />
-      ))}
+    <div className="throws-menu" style={{ display: "inline-block" }}>
+      <span style={style}>Throw Tracker</span>
+      <Button
+        onClick={() => setOpen(!open)}
+        aria-controls="example-collapse-text"
+        aria-expanded={open}
+      >
+        Open
+      </Button>
+      <Collapse in={open}>
+        <div style={{ borderTop: "2px solid gray" }}>
+          {throws.map((ULTthrow: ULT.Throw) => (
+            <Throw throws={ULTthrow} score={throwTextGen(ULTthrow)} />
+          ))}
+        </div>
+      </Collapse>
     </div>
   );
 };
