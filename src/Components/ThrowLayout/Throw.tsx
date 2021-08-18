@@ -4,6 +4,7 @@ import "./Throw.css";
 interface ThrowProps {
   throws: ULT.Throw;
   score: string;
+  setStars: (stars: Array<ULT.Point>) => void;
 }
 
 const Throw = (props: ThrowProps) => {
@@ -13,10 +14,15 @@ const Throw = (props: ThrowProps) => {
   let borderColor: string =
     throws.throwResult === ULT.ThrowResult.Score ? "green" : "red";
 
+  let onClick = () => {
+    props.setStars(throws.toPoints());
+  };
+
   return (
     <div
       className="throw-body"
       style={{ borderLeft: "10px solid " + borderColor }}
+      onClick={onClick}
     >
       <>{score}</>
     </div>

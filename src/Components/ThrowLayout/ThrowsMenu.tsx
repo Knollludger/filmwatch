@@ -8,10 +8,12 @@ import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 
 interface ThrowsMenuProps {
   throws: Array<ULT.Throw>;
+  setStars: (stars: Array<ULT.Point>) => void;
 }
 
 const ThrowsMenu = (props: ThrowsMenuProps) => {
   let throws = props.throws;
+  let setStars = props.setStars;
   const [open, setOpen] = React.useState<boolean>(true);
 
   let style = {
@@ -45,7 +47,11 @@ const ThrowsMenu = (props: ThrowsMenuProps) => {
       <Collapse in={open}>
         <div style={{ borderTop: "2px solid gray" }}>
           {throws.map((ULTthrow: ULT.Throw) => (
-            <Throw throws={ULTthrow} score={throwTextGen(ULTthrow)} />
+            <Throw
+              throws={ULTthrow}
+              score={throwTextGen(ULTthrow)}
+              setStars={setStars}
+            />
           ))}
         </div>
       </Collapse>

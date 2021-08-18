@@ -70,4 +70,25 @@ export class Throw {
     this.throwResult =
       target.score === true ? ThrowResult.Score : ThrowResult.D;
   }
+
+  toPoints() {
+    return [
+      {
+        id: "0",
+        x: this.thrower.x,
+        y: this.thrower.y,
+        isDragging: false,
+        thrower: true,
+        completion: false,
+      },
+      {
+        id: "1",
+        x: this.target.x,
+        y: this.target.y,
+        isDragging: false,
+        thrower: false,
+        completion: this.target.completion,
+      },
+    ];
+  }
 }

@@ -29,7 +29,6 @@ const App = () => {
   };
 
   let propogateStars = (stars: Array<ULT.Point>) => {
-    console.log(stars);
     setStars(stars);
   };
 
@@ -55,7 +54,7 @@ const App = () => {
   };
 
   let nextThrow = () => {
-    setThrowID(throwID + 1);
+    setThrowID(throws.length + 1);
   };
 
   return (
@@ -69,7 +68,7 @@ const App = () => {
             stars={stars}
           />
           <Button onClick={makeThrow} />
-          <ThrowsMenu throws={throws} />
+          <ThrowsMenu throws={throws} setStars={propogateStars} />
         </div>
       </header>
     </div>
