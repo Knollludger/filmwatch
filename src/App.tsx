@@ -32,6 +32,10 @@ const App = () => {
     setStars(stars);
   };
 
+  let propogateThrowID = (newID: number) => {
+    setThrowID(newID);
+  };
+
   let propogatethrows = (Throw: ULT.Throw) => {
     if (
       throws.filter((x) => {
@@ -68,7 +72,11 @@ const App = () => {
             stars={stars}
           />
           <Button onClick={makeThrow} />
-          <ThrowsMenu throws={throws} setStars={propogateStars} />
+          <ThrowsMenu
+            throws={throws}
+            setStars={propogateStars}
+            setThrowID={propogateThrowID}
+          />
         </div>
       </header>
     </div>

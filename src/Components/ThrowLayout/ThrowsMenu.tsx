@@ -9,11 +9,13 @@ import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 interface ThrowsMenuProps {
   throws: Array<ULT.Throw>;
   setStars: (stars: Array<ULT.Point>) => void;
+  setThrowID: (newID: number) => void;
 }
 
 const ThrowsMenu = (props: ThrowsMenuProps) => {
   let throws = props.throws;
   let setStars = props.setStars;
+  let setThrowID = props.setThrowID;
   const [open, setOpen] = React.useState<boolean>(true);
 
   let style = {
@@ -26,7 +28,7 @@ const ThrowsMenu = (props: ThrowsMenuProps) => {
     <div className="throws-menu" style={{ display: "inline-block" }}>
       <div>
         <span style={style}>Throw Tracker</span>
-        {open ? (
+        {!open ? (
           <FaCaretDown
             onClick={() => setOpen(!open)}
             aria-controls="example-collapse-text"
@@ -51,6 +53,7 @@ const ThrowsMenu = (props: ThrowsMenuProps) => {
               throws={ULTthrow}
               score={throwTextGen(ULTthrow)}
               setStars={setStars}
+              setThrowID={setThrowID}
             />
           ))}
         </div>

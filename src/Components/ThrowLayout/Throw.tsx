@@ -5,6 +5,7 @@ interface ThrowProps {
   throws: ULT.Throw;
   score: string;
   setStars: (stars: Array<ULT.Point>) => void;
+  setThrowID: (newID: number) => void;
 }
 
 const Throw = (props: ThrowProps) => {
@@ -16,6 +17,7 @@ const Throw = (props: ThrowProps) => {
 
   let onClick = () => {
     props.setStars(throws.toPoints());
+    props.setThrowID(throws.id);
   };
 
   return (
